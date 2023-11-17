@@ -20,11 +20,15 @@ from rest_framework import routers
 from main_app import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+# router.register(r'users', views.UserViewSet)
+# router.register(r'groups', views.GroupViewSet)
+router.register(r'employees', views.EmployeeViewSet)
+router.register(r'managers', views.ManagerViewSet)
+router.register(r'tasks', views.TaskViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('register/', views.EmployeeRegistration.as_view(), name='employee-registration')
 ]

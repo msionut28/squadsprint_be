@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'squadsrpint_be.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'squadsprint_be.settings')
 
 application = get_wsgi_application()

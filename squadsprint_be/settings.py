@@ -34,7 +34,12 @@ SECRET_KEY = 'django-insecure-hw-g307o*%kod@sfh(8qtakzxhui63-#-kqr-7e1yh5zs+-3d_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'squadsprintbe-production.up.railway.app',
+    'squadsprintbe.railway.internal',
+    'localhost:8000',
+    'localhost'
+]
 
 
 # Application definition
@@ -46,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'rest_framework',
     'corsheaders',
     'main_app',
@@ -54,6 +60,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,6 +68,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'squadsprintbe.railway.internal/',
+    'squadsprintbe-production.up.railway.app/',
+    'https://*squadsprintbe-production.up.railway.app',
+    'https://*.railway.app/',
+    'localhost',
+    'localhost:8000',
+    'http://*localhost:8000'
 ]
 
 ROOT_URLCONF = 'squadsprint_be.urls'
@@ -82,6 +99,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'squadsprint_be.wsgi.application'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import *
 
@@ -7,12 +7,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'username', 'email', 'groups']
         
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class EmployeeGroupSerializer(serializers.ModelSerializer):
+    manager = serializers.PrimaryKeyRelatedField(queryset=Manager.objects.all(), required=True)
     class Meta: 
-        model = Group
-        fields = ['url', 'name'] 
-
-class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
+        model = EmployeeGroup
+        fields = '__all__'
+        
+class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['id', 'username', 'email', 'password']
@@ -27,12 +28,14 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
         return user
 
-class TaskSerializer(serializers.HyperlinkedModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
+    created_by = serializers.PrimaryKeyRelatedField(queryset=Manager.objects.all())
+    assigned_group = serializers.PrimaryKeyRelatedField(queryset=EmployeeGroup.objects.all())
     class Meta:
         model = Task
         fields = '__all__' 
 
-class ManagerSerializer(serializers.HyperlinkedModelSerializer):
+class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manager
         fields = '__all__' 

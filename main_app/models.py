@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-class Group(models.Model):
+class EmployeeGroup(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     manager = models.ForeignKey('Manager', on_delete=models.CASCADE)
@@ -18,7 +18,7 @@ class Manager(models.Model):
 class Employee(AbstractUser):
     profile_picture = models.URLField(max_length=200, null=True, blank=True)
     bio = models.TextField(blank=True)
-    assigned_groups = models.ManyToManyField(Group, related_name='members', blank=True)
+    assigned_groups = models.ManyToManyField(EmployeeGroup, related_name='members', blank=True)
     manager = models.OneToOneField('Manager', on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_user')
 
     def __str__(self):
@@ -29,7 +29,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_by = models.ForeignKey('Manager', on_delete=models.CASCADE, related_name='tasks_created')
-    assigned_group = models.OneToOneField('Group', on_delete=models.CASCADE, related_name='task')
+    assigned_group = models.OneToOneField('EmployeeGroup', on_delete=models.CASCADE, related_name='task')
 
     def __str__(self):
         return self.title

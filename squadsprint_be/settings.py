@@ -71,12 +71,12 @@ MIDDLEWARE = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'squadsprintbe.railway.internal/',
-    'squadsprintbe-production.up.railway.app/',
+    'https://squadsprintbe.railway.internal/',
+    'https://squadsprintbe-production.up.railway.app/',
     'https://*squadsprintbe-production.up.railway.app',
     'https://*.railway.app/',
-    'localhost',
-    'localhost:8000',
+    'http://localhost',
+    'http://localhost:8000',
     'http://*localhost:8000'
 ]
 

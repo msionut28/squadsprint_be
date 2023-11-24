@@ -34,6 +34,7 @@ urlpatterns = [
     path('customtoken/', views.CustomTokenObtainPairView.as_view(), name='custom-token-obtain-pair'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token-refresh '),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('tasks/delete/<int:pk>', views.TaskDeleteViewSet.as_view(), name="task-delete"),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('register/', views.EmployeeRegistration.as_view(), name='employee-registration'),

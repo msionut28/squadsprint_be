@@ -11,6 +11,11 @@ class EmployeeGroup(models.Model):
 
 class Manager(models.Model):
     user = models.OneToOneField('Employee', on_delete=models.CASCADE, related_name='manager_profile')
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user'], name='unique_manager_per_user')
+    ]
 
     def __str__(self): 
         return self.user.username
@@ -20,6 +25,12 @@ class Employee(AbstractUser):
     bio = models.TextField(blank=True)
     assigned_groups = models.ManyToManyField(EmployeeGroup, related_name='members', blank=True)
     manager = models.OneToOneField('Manager', on_delete=models.SET_NULL, null=True, blank=True, related_name='managed_user')
+    
+    def save(self, *args, **kwargs):
+        if not self.profile_picture:
+            self.profile_picture = '/icons/white/profile.svg'
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username

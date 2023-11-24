@@ -31,6 +31,7 @@ router.register(r'addtask', views.TaskAddViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('token/', jwt_views.TokenObtainPairView.as_view(), name='token-obtain-pair'),
+    path('customtoken/', views.CustomTokenObtainPairView.as_view(), name='custom-token-obtain-pair'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token-refresh '),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('', include(router.urls)),

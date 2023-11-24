@@ -46,4 +46,5 @@ class CustomTokenObtain(TokenObtainPairSerializer):
         data = super().validate(attrs)
         is_manager = Manager.objects.filter(user=self.user).exists()
         data['is_manager'] = is_manager
+        data['user_id']=self.user.id
         return data

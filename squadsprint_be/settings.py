@@ -15,7 +15,7 @@ from datetime import timedelta
 import environ
 import os
 
-env = environ.Env(
+env = environ.Env( 
     DEBUG=(bool, False)
 )
 
@@ -188,3 +188,11 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+# GMAIL CONFIGURATIONS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ['GMAIL_USER']
+EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASSWORD']
